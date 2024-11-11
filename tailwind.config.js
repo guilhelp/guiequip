@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./views/**/*.handlebars"],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['JetBrains Mono', 'sans-serif'], // Defina a fonte padrão
+        sans: ['JetBrains Mono', 'sans-serif'],
       },
     },
   },
