@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Cadastrar Departamento</title>
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 250px;
+            background-color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 20;
+        }
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            right: 250px;
+            height: 100%;
+            width: calc(100% - 250px);
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+        .overlay.active {
+            opacity: 1;
+        }
+        .active-link {
+            border-bottom: 2px solid #60A5FA;
+        }
+    </style>
+</head>
+<body>
+    <nav class="container mx-auto px-4 bg-white p-4 flex justify-between items-center">
+        <div class="text-white text-lg font-bold">
+            <img src="../assets/logo.png" alt="Logo" class="h-24">
+        </div>
+        <div class="hidden md:flex space-x-8">
+            <a href="#" class="text-black ">Departamentos</a>
+            <a href="#" class="text-black active-link">Cadastrar Departamento</a>
+            <a href="#" class="text-black">Usuários</a>
+            <button class="text-black flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+                  </svg>
+                                                  
+            </button>
+        </div>
+        <button id="menu-button" class="md:hidden text-black">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    </nav>
+
+    <div id="overlay" class="overlay hidden"></div>
+
+    <div id="sidebar" class="sidebar hidden">
+        <div class="p-4">
+            <a href="#" class="block text-black mb-2 ">Departamentos</a>
+            <a href="#" class="block text-black mb-2 active-link">Cadastrar Departamento</a>
+            <a href="#" class="block text-black mb-2">Cadastrar Usuários</a>
+            <button class="text-black flex items-center">
+                <span>Sair</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h10a1 1 0 110 2H4v10h10a1 1 0 110 2H4a1 1 0 01-1-1V4zm13.293 5.293a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L13.586 11H7a1 1 0 110-2h6.586l-1.293-1.293a1 1 0 011.414-1.414l3 3z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <section class="container mx-auto px-4 justify-center"> 
+        <div class="mx-auto max-w-xl px-4"> 
+        <form class="border p-4 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-6 text-center relative after:content-[''] after:block after:w-16 after:h-[2px] after:bg-[#60A5FA] after:mt-2 after:mx-auto">
+                Cadastrar Departamento
+            </h2>
+            <div class="mb-4 mt-14">
+                <label for="nome-departamento" class="block text-sm font-medium text-bold">Nome do Departamento</label>
+                <input type="text" id="nome-departamento" class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
+            </div>
+            <div class="mb-8">
+                <label for="imagem" class="block text-sm font-medium text-bold">Carregar uma imagem</label>
+                <div class="relative mt-1 flex items-center">
+                    <input type="file" id="imagem" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                    <div class="flex items-center justify-center w-full border border-gray-300 rounded-md shadow-sm p-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                          </svg>                          
+                    </div>
+                </div>
+                <div class="mt-2 flex items-center justify-between">
+                    <span class="text-sm text-bold">imagem.png</span>
+                    <button type="button" class="text-red-500 hover:text-red-700 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="flex justify-end ">
+                <button type="submit" class="bg-[#60A5FA] text-white py-2 px-4 rounded-md hover:bg-[#3B82F6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#60A5FA]">
+                    Cadastrar
+                </button>
+            </div>
+        </form>
+        </div>
+    </section>
+
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('hidden');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.add('hidden');
+            sidebar.classList.remove('active');
+            overlay.classList.add('hidden');
+            overlay.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
