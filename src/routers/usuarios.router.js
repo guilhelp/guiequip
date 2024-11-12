@@ -1,7 +1,10 @@
 const router = require("express").Router();
+const { getFirestore } = require('firebase-admin/firestore');
+
+const db = getFirestore();
 
 // ->>>>>>>>>>>> USERS <<<<<<<<<<<<<<<-
-router.get('/usuarios', async function (req, res) {
+router.get('/', async function (req, res) {
     try {
         const usersSnapshot = await db.collection('users').where('role', '!=', 'admin').get();
         const users = usersSnapshot.docs.map(doc => ({
@@ -84,7 +87,7 @@ router.get('/editar-usuario/:id', async function (req, res) {
     }
 });
 
-router.post('/usuarios/:id', async function (req, res) {
+router.post('/:id', async function (req, res) {
     const { id } = req.params;
     const { nome, email, password } = req.body;
 

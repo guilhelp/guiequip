@@ -1,6 +1,9 @@
 const router = require("express").Router();
+const { getFirestore } = require('firebase-admin/firestore');
 
-router.get('/departamentos-admin', async function (req, res) {
+const db = getFirestore();
+
+router.get('/', async function (req, res) {
     try {
         const departamentosSnapshots = await db.collection('departamentos').get();
         const departamentos = departamentosSnapshots.docs.map(doc => ({
@@ -15,22 +18,7 @@ router.get('/departamentos-admin', async function (req, res) {
     }
 });
 
-router.get('/departamentos', async function (req, res) {
-    try {
-        const departamentosSnapshots = await db.collection('departamentos').get();
-        const departamentos = departamentosSnapshots.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-
-        res.render('DepartamentosUsuarioPage', { departamentos });
-    } catch (error) {
-        console.error('Erro ao buscar departamentos:', error);
-        res.status(500).send('Erro ao buscar departamentos.');
-    }
-});
-
-router.get('/departamento/:id', async function (req, res) {
+router.get('/:id', async function (req, res) {
     const departamentoId = req.params.id;
 
     try {
@@ -63,7 +51,7 @@ router.post("/criar-departamento", async function (req, res) {
             descricao,
         })
 
-        res.redirect('/departamentos-admin')
+        res.redirect('/departamentos')
     } catch (error) {
         console.error('Erro ao criar o departamento:', error)
         res.status(500).send('Erro ao criar o departamento.')

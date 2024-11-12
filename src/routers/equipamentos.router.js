@@ -1,7 +1,10 @@
 const router = require("express").Router();
+const { getFirestore } = require('firebase-admin/firestore');
+
+const db = getFirestore();
 
 // ->>>>>>>>>>>> EQUIPAMENTOS <<<<<<<<<<<<<<<-
-router.get('/equipamentos/:departamentoId', async function (req, res) {
+router.get('/:departamentoId', async function (req, res) {
     const { departamentoId } = req.params;
 
     try {

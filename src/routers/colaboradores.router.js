@@ -1,7 +1,10 @@
 const router = require("express").Router();
+const { getFirestore } = require('firebase-admin/firestore');
+
+const db = getFirestore();
 
 // ->>>>>>>>>>>> COLABORADORES <<<<<<<<<<<<<<<-
-router.get('/colaboradores/:departamentoId', async function (req, res) {
+router.get('/:departamentoId', async function (req, res) {
     const { departamentoId } = req.params;
 
     try {
@@ -42,7 +45,7 @@ router.post("/criar-colaborador/:departamentoId", async function (req, res) {
     }
 });
 
-router.delete('/colaboradores/:id', async function (req, res) {
+router.delete('/:id', async function (req, res) {
     const { id } = req.params;
 
     try {
@@ -69,7 +72,7 @@ router.get('/editar-colaborador/:id', async function (req, res) {
     }
 });
 
-router.post('/colaboradores/:departamentoId/:id', async function (req, res) {
+router.post('/:departamentoId/:id', async function (req, res) {
     const { id, departamentoId } = req.params;
     const { nome, cargo } = req.body;
 

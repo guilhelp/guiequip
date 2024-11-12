@@ -5,7 +5,6 @@
     <div class="hidden md:flex space-x-8">
         <a href="/departamentos-admin" class="text-black active-link">Departamentos</a>
         <a href="/criar-departamento" class="text-black">Cadastrar Departamento</a>
-        <a href="/usuarios" class="text-black">Usuários</a>
         <a href="/logout">
             <button class="text-black flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -29,7 +28,6 @@
     <div class="p-4">
         <a href="/departamentos-admin" class="block text-black mb-2 active-link">Departamentos</a>
         <a href="/criar-departamento" class="block text-black mb-2">Cadastrar Departamento</a>
-        <a href="/usuarios" class="block text-black mb-2">Cadastrar Usuários</a>
         <a href="/logout">
             <button class="text-black flex items-center">
                 <span>Sair</span>
@@ -44,7 +42,7 @@
 </div>
 
 <section class="container mx-auto px-4">
-    <h1 class="text-xl mt-6 mx-8 my-8">Bem vindo(a) <b>admin,</b> faça a escolha do departamento:</h1>
+    <h1 class="text-xl mt-6 mx-8 my-8">Bem vindo(a) <b>usuário,</b> faça a escolha do departamento:</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
         {{#each departamentos}}
         <a href="#"

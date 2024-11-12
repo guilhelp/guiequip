@@ -1,4 +1,9 @@
 const router = require("express").Router();
+const { getAuth } = require('firebase-admin/auth');
+const { getFirestore } = require('firebase-admin/firestore');
+
+const db = getFirestore();
+const auth = getAuth();
 
 router.get('/', function (req, res) {
     res.render('LoginPage');
@@ -16,7 +21,7 @@ router.post('/login', async function (req, res) {
             const userData = userSnapshot.data();
             
             if (userData.role === 'admin') {
-                return res.redirect('/departamentos-admin');
+                return res.redirect('/departamentos');
             } else {
                 return res.redirect('/departamentos');
             }
