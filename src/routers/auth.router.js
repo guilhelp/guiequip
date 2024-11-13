@@ -10,32 +10,36 @@ router.get('/', function (req, res) {
 });
 
 router.post('/login', async function (req, res) {
-    const { email, password } = req.body;
+    const { token } = req.body;
 
     try {
-       
-        const userRecord = await auth.getUserByEmail(email);
-        const userSnapshot = await db.collection('users').doc(userRecord.uid).get();
+        const decodedToken = await auth.verifyIdToken(token);
+        const uid = decodedToken.uid;
+
+        let userRef = db.collection('usuarios').doc(uid);
+        let userDoc = await userRef.get();
         
-        if (userSnapshot.exists) {
-            const userData = userSnapshot.data();
-            
-            if (userData.role === 'admin') {
-                return res.redirect('/departamentos');
-            } else {
-                return res.redirect('/departamentos');
-            }
-        } else {
-            res.status(404).send('Usuário não encontrado no Firestore.');
+        if (!userDoc.exists) {
+            await userRef.set({
+                email: decodedToken.email,
+                nome: decodedToken.name,
+                foto: decodedToken.picture,
+                criadoEm: new Date(),
+            });
         }
+
+        req.session.user = { uid, email: decodedToken.email };
+        res.status(200).json({ success: true, message: 'Usuário autenticado com sucesso' });
+
     } catch (error) {
-        console.error('Erro ao autenticar o usuário:', error);
-        res.status(500).send('Erro ao autenticar o usuário.');
+        console.error('Erro ao verificar o token:', error);
+        res.status(401).json({ success: false, message: 'Falha na autenticação' });
     }
 });
 
 router.get('/logout', function (req, res) {
-    res.redirect('/');
+    req.session.destroy();
+    res.redirect('/auth');
 });
 
-module.exports = router
+module.exports = router;

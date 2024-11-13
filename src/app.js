@@ -19,6 +19,15 @@ const hbs = handlebars.create({
     }
 });
 
+const session = require('express-session');
+app.use(session({
+    secret: 'guilherme',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
+
+
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set("views", __dirname + "/views");
@@ -32,11 +41,18 @@ const departamentosRouter = require("./routers/departamentos.router");
 const equipamentosRouter = require("./routers/equipamentos.router");
 const usuariosRouter = require("./routers/usuarios.router");
 
+function isAuthenticated(req, res, next) {
+    if (req.session.user) {
+        return next();
+    }
+    res.redirect('/auth');
+}
+
 app.use("/auth", authRouter);
-app.use("/colaboradores", colaboradoresRouter);
-app.use("/departamentos", departamentosRouter);
-app.use("/equipamentos", equipamentosRouter);
-app.use("/usuarios", usuariosRouter);
+app.use("/colaboradores", isAuthenticated, colaboradoresRouter);
+app.use("/departamentos", isAuthenticated, departamentosRouter);
+app.use("/equipamentos", isAuthenticated, equipamentosRouter);
+app.use("/usuarios", isAuthenticated, usuariosRouter);
 
 app.listen(8081, function () {
     console.log('Servidor ativo, rodando na porta localhost:8081');

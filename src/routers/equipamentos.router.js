@@ -89,5 +89,58 @@ router.delete('/:equipamentoId', async function (req, res) {
     }
 });
 
+router.get('/editar/:equipamentoId', async function (req, res) {
+    const { equipamentoId } = req.params;
+
+    try {
+        const equipamento = (await db.collection('equipamentos').doc(equipamentoId).get()).data();
+        const colaboradoresSnapshot = await db.collection('colaboradores')
+            .where('departamentoId', '==', equipamento.departamentoId)
+            .get();
+
+        const colaboradores = colaboradoresSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        res.render('EditarEquipamentoPage', { equipamento, colaboradores, equipamentoId });
+    } catch (error) {
+        console.error('Erro ao buscar equipamento:', error);
+        res.status(500).send('Erro ao buscar equipamento.');
+    }
+});
+
+router.post('/:departamentoId/:equipamentoId', async function (req, res) {
+    const { equipamentoId, departamentoId } = req.params;
+    const { tipoEquipamento, processador, ram, hdSsd, marca, modelo, usuarioId, usuarioNome } = req.body;
+
+    try {
+        const equipamentoData = {
+            tipoEquipamento: tipoEquipamento,
+            modelo: modelo,
+            usuario: {
+                id: usuarioId,
+                nome: usuarioNome
+            }
+        };
+
+        if (tipoEquipamento === 'Notebook') {
+            equipamentoData.processador = processador;
+            equipamentoData.ram = ram;
+            equipamentoData.hdSsd = hdSsd ;
+            equipamentoData.marca = marca;
+            equipamentoData.modelo = modelo;
+        } else {
+            equipamentoData.marca = marca;
+            equipamentoData.modelo = modelo;
+        }
+
+        await db.collection('equipamentos').doc(equipamentoId).update(equipamentoData);
+        res.redirect(`/equipamentos/${departamentoId}`);
+    } catch (error) {
+        console.error("Erro ao editar equipamento:", error);
+        res.status(500).send({ message: "Erro ao editar equipamento", error });
+    }
+});
 
 module.exports = router

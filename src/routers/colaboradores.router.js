@@ -55,7 +55,20 @@ router.delete('/:id', async function (req, res) {
     const { id } = req.params;
 
     try {
+    
         await db.collection('colaboradores').doc(id).delete();
+
+        const equipamentosSnapshot = await db.collection('equipamentos').where('usuario.id', '==', id).get();
+
+        const batch = db.batch();
+        equipamentosSnapshot.forEach(doc => {
+            const equipamentoRef = db.collection('equipamentos').doc(doc.id);
+            batch.update(equipamentoRef, {
+                'usuario.id': '',
+                'usuario.nome': ''
+            });
+        });
+        await batch.commit();
 
         res.status(204).send();
     } catch (error) {

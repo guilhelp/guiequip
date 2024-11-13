@@ -1,4 +1,4 @@
-<nav class="container mx-auto px-4 bg-white p-4 flex justify-between items-center">
+<nav class="container mx-auto px-4 bg-white p-4 flex justify-between items-center max-w-screen-lg">
     <div class="flex items-center space-x-4">
         <div class="text-white text-lg font-bold">
             <a href="/departamentos">
@@ -16,10 +16,10 @@
         </a>
     </div>
     <div class="hidden md:flex space-x-8">
-        <a href="/departamentos/{{departamento.id}}" class="text-black active-link">Dashboard</a>
-        <a href="/equipamentos/{{departamento.id}}" class="text-black">Equipamentos</a>
-        <a href="/colaboradores/{{departamento.id}}" class="text-black ">Colaboradores</a>
-        <a href="/logout">
+        <a href="/departamentos/{{departamentoId}}" class="text-black active-link">Dashboard</a>
+        <a href="/equipamentos/{{departamentoId}}" class="text-black">Equipamentos</a>
+        <a href="/colaboradores/{{departamentoId}}" class="text-black ">Colaboradores</a>
+        <a href="/auth/logout">
             <button class="text-black flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-6">
@@ -40,10 +40,10 @@
 
 <div id="sidebar" class="sidebar hidden">
     <div class="p-4">
-        <a href="/departamentos/{{departamento.id}}" class="block text-black mb-2 active-link">Dashboard</a>
-        <a href="/equipamentos/{{departamento.id}}" class="block text-black mb-2 ">Equipamentos</a>
-        <a href="/colaboradores/{{departamento.id}}" class="block text-black mb-2 ">Colaboradores</a>
-        <a href="/logout">
+        <a href="/departamentos/{{departamentoId}}" class="block text-black mb-2 active-link">Dashboard</a>
+        <a href="/equipamentos/{{departamentoId}}" class="block text-black mb-2 ">Equipamentos</a>
+        <a href="/colaboradores/{{departamentoId}}" class="block text-black mb-2 ">Colaboradores</a>
+        <a href="/auth/logout">
             <button class="text-black flex items-center">
                 <span>Sair</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
@@ -56,15 +56,15 @@
     </div>
 </div>
 
-<section class="container mx-auto px-4 justify-center mt-20">
+<section class="container mx-auto px-4 justify-center mt-20 max-w-screen-lg">
     <div class="mx-auto max-w-1xl px-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-white shadow-md rounded-lg p-6 text-center">
-                <div class="text-8xl font-bold">123</div>
+                <div class="text-8xl font-bold">{{totalEquipamentos}}</div>
                 <div class="text-lg mt-2">Total de Equipamentos</div>
             </div>
             <div class="bg-white shadow-md rounded-lg p-6 text-center">
-                <div class="text-8xl font-bold">456</div>
+                <div class="text-8xl font-bold">{{totalColaboradores}}</div>
                 <div class="text-lg mt-2">Total de Colaboradores</div>
             </div>
         </div>
