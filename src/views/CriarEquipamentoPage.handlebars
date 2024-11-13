@@ -1,113 +1,174 @@
 <nav class="container mx-auto px-4 bg-white p-4 flex justify-between items-center">
-        <div class="flex items-center space-x-4">
-            <div class="text-white text-lg font-bold">
-                <img src="../logo.png" alt="Logo" class="h-24">
-            </div>
-            <button onclick="history.back()" class="text-black flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div class="flex items-center space-x-4">
+        <div class="text-white text-lg font-bold">
+            <a href="/departamentos">
+                <img src="/logo.png" alt="Logo" class="h-24">
+            </a>
+        </div>
+        <a href="/departamentos">
+            <button class="text-black flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
                 <span class="ml-2">Voltar</span>
             </button>
-        </div>
-        <div class="hidden md:flex space-x-8">
-            <a href="/departamento/{{departamentoId}}" class="text-black ">Dashboard</a>
-            <a href="/equipamentos/{{departamentoId}}" class="text-black active-link">Equipamentos</a>
-            <a href="/colaboradores/{{departamentoId}}" class="text-black ">Colaboradores</a>
-            <button class="text-black flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
-                  </svg>
-                                                  
-            </button>
-        </div>
-        <button id="menu-button" class="md:hidden text-black">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </a>
+    </div>
+    <div class="hidden md:flex space-x-8">
+        <a href="/departamento/{{departamentoId}}" class="text-black ">Dashboard</a>
+        <a href="/equipamentos/{{departamentoId}}" class="text-black active-link">Equipamentos</a>
+        <a href="/colaboradores/{{departamentoId}}" class="text-black ">Colaboradores</a>
+        <button class="text-black flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+            </svg>
+
+        </button>
+    </div>
+    <button id="menu-button" class="md:hidden text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+    </button>
+</nav>
+
+<div id="overlay" class="overlay hidden"></div>
+
+<div id="sidebar" class="sidebar hidden">
+    <div class="p-4">
+        <a href="/departamento/{{departamentoId}}" class="block text-black mb-2 ">Dashboard</a>
+        <a href="/equipamentos/{{departamentoId}}" class="block text-black mb-2 active-link ">Equipamentos</a>
+        <a href="/colaboradores/{{departamentoId}}" class="block text-black mb-2 ">Colaboradores</a>
+        <button class="text-black flex items-center">
+            <span>Sair</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M3 4a1 1 0 011-1h10a1 1 0 110 2H4v10h10a1 1 0 110 2H4a1 1 0 01-1-1V4zm13.293 5.293a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L13.586 11H7a1 1 0 110-2h6.586l-1.293-1.293a1 1 0 011.414-1.414l3 3z"
+                    clip-rule="evenodd" />
             </svg>
         </button>
-    </nav>
-
-    <div id="overlay" class="overlay hidden"></div>
-
-    <div id="sidebar" class="sidebar hidden">
-        <div class="p-4">
-            <a href="/departamento/{{departamentoId}}" class="block text-black mb-2 ">Dashboard</a>
-            <a href="/equipamentos/{{departamentoId}}" class="block text-black mb-2 active-link ">Equipamentos</a>
-            <a href="/colaboradores/{{departamentoId}}" class="block text-black mb-2 ">Colaboradores</a>
-            <button class="text-black flex items-center">
-                <span>Sair</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h10a1 1 0 110 2H4v10h10a1 1 0 110 2H4a1 1 0 01-1-1V4zm13.293 5.293a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L13.586 11H7a1 1 0 110-2h6.586l-1.293-1.293a1 1 0 011.414-1.414l3 3z" clip-rule="evenodd" />
-                </svg>
-            </button>
-        </div>
     </div>
+</div>
 
-    <section class="container mx-auto px-4 justify-center"> 
-        <div class="mx-auto max-w-xl px-4"> 
-        <form class="border p-4 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-6 text-center relative after:content-[''] after:block after:w-16 after:h-[2px] after:bg-[#60A5FA] after:mt-2 after:mx-auto">
+<section class="container mx-auto px-4 justify-center">
+    <div class="mx-auto max-w-xl px-4">
+        <form action="/equipamentos/criar/{{departamentoId}}" method="POST" class="border p-4 rounded-lg shadow-md">
+            <h2
+                class="text-2xl font-bold mb-6 text-center relative after:content-[''] after:block after:w-16 after:h-[2px] after:bg-[#60A5FA] after:mt-2 after:mx-auto">
                 Cadastrar Equipamento
             </h2>
             <div class="mb-4">
                 <label for="tipo-equipamento" class="block text-sm font-medium text-bold">Tipo de Equipamento</label>
-                <select id="tipo-equipamento" class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm" required>
+                <select id="tipo-equipamento" name="tipoEquipamento"
+                    class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm"
+                    required>
                     <option value="">Selecione o tipo de equipamento</option>
-                    <option value="notebook">Notebook</option>
-                    <option value="monitor">Monitor</option>
-                    <option value="teclado-mouse">Teclado/Mouse</option>
-                    <option value="headset">Headset</option>
+                    <option value="Notebook">Notebook</option>
+                    <option value="Monitor" >Monitor</option>
+                    <option value="Teclado/Mouse" >Teclado/Mouse</option>
+                    <option value="Headset">Headset</option>
                 </select>
             </div>
             <div id="notebook-fields" class="hidden">
                 <div class="mb-4">
                     <label for="processador" class="block text-sm font-medium text-bold">Processador</label>
-                    <input type="text" id="processador" class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
+                    <input type="text" id="processador" name="processador"
+                        class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
                 </div>
                 <div class="mb-4">
                     <label for="ram" class="block text-sm font-medium text-bold">RAM</label>
-                    <input type="text" id="ram" class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
+                    <input type="text" id="ram" name="ram"
+                        class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
                 </div>
                 <div class="mb-4">
                     <label for="hd-ssd" class="block text-sm font-medium text-bold">HD/SSD</label>
-                    <input type="text" id="hd-ssd" class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
+                    <input type="text" id="hd-ssd" name="hdSsd"
+                        class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
                 </div>
             </div>
             <div id="common-fields" class="hidden">
                 <div class="mb-4">
                     <label for="marca" class="block text-sm font-medium text-bold">Marca</label>
-                    <input type="text" id="marca" class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
+                    <input type="text" id="marca" name="marca" required
+                        class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
                 </div>
                 <div class="mb-4">
                     <label for="modelo" class="block text-sm font-medium text-bold">Modelo</label>
-                    <input type="text" id="modelo" class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
+                    <input type="text" id="modelo" name="modelo"   required
+                        class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm">
                 </div>
             </div>
             <div class="mb-4">
-                <label for="usuario" class="block text-sm font-medium text-bold">Atribuir a um Usuário</label>
-                <select id="usuario" class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm" required>
-                    <option value="">Selecione um usuário</option>
-                </select>
+                <label for="colaborador-search" class="block text-sm font-medium text-gray-700">Atribuir a um
+                    Colaborador</label>
+                <input type="text" id="colaborador-search" required
+                    class="relative block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#60A5FA] focus:border-[#60A5FA] focus:z-10 sm:text-sm"
+                    placeholder="Pesquisar colaborador...">
+                <ul id="colaborador-list"
+                    class="mt-2 border border-gray-300 rounded-md max-h-48 overflow-y-auto hidden">
+                    {{#each colaboradores}}
+                    <li class="p-2 cursor-pointer hover:bg-gray-200" data-id="{{id}}" data-nome="{{nome}}">{{nome}}</li>
+                    {{/each}}
+                </ul>
+                <input type="hidden" name="usuarioId" id="usuario-id">
+                <input type="hidden" name="usuarioNome" id="usuario-nome">
             </div>
             <div class="flex justify-end">
-                <button type="submit" class="bg-[#60A5FA] text-white py-2 px-4 rounded-md hover:bg-[#3B82F6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#60A5FA]">
+                <button type="submit"
+                    class="bg-[#60A5FA] text-white py-2 px-4 rounded-md hover:bg-[#3B82F6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#60A5FA]">
                     Cadastrar
                 </button>
             </div>
         </form>
-        </div>
-    </section>
+    </div>
+</section>
 
-    
-    <script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const colaboradorSearch = document.getElementById('colaborador-search');
+        const colaboradorList = document.getElementById('colaborador-list');
+        const usuarioIdInput = document.getElementById('usuario-id');
+        const usuarioNomeInput = document.getElementById('usuario-nome');
+
+        colaboradorSearch.addEventListener('input', function () {
+            const searchValue = this.value.toLowerCase();
+            const items = colaboradorList.querySelectorAll('li');
+
+            let hasResults = false;
+            items.forEach(item => {
+                const nome = item.getAttribute('data-nome').toLowerCase();
+                if (nome.includes(searchValue)) {
+                    item.classList.remove('hidden');
+                    hasResults = true;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            colaboradorList.classList.toggle('hidden', !hasResults);
+        });
+
+        colaboradorList.addEventListener('click', function (event) {
+            const target = event.target;
+            if (target.tagName === 'LI') {
+                colaboradorSearch.value = target.getAttribute('data-nome');
+                usuarioIdInput.value = target.getAttribute('data-id');
+                usuarioNomeInput.value = target.getAttribute('data-nome');
+                colaboradorList.classList.add('hidden');
+            }
+        });
+
         const tipoEquipamento = document.getElementById('tipo-equipamento');
         const notebookFields = document.getElementById('notebook-fields');
         const commonFields = document.getElementById('common-fields');
 
-        tipoEquipamento.addEventListener('change', function() {
+        tipoEquipamento.addEventListener('change', function () {
             const value = this.value;
-            if (value === 'notebook') {
+            if (value === 'Notebook') {
                 notebookFields.classList.remove('hidden');
                 commonFields.classList.remove('hidden');
             } else if (value) {
@@ -129,12 +190,7 @@
             overlay.classList.toggle('hidden');
             overlay.classList.toggle('active');
         });
+    });
 
-        overlay.addEventListener('click', () => {
-            sidebar.classList.add('hidden');
-            sidebar.classList.remove('active');
-            overlay.classList.add('hidden');
-            overlay.classList.remove('active');
-        });
-    </script>
 
+</script>

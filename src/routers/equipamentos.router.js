@@ -14,21 +14,80 @@ router.get('/:departamentoId', async function (req, res) {
             ...doc.data()
         }));
 
-        res.render('EquipamentosPage', { equipamentos, departamentoId });
+        const equipamentosEncontrados = equipamentos.length > 0;
+
+        res.render('EquipamentosPage', {equipamentos, departamentoId, equipamentosEncontrados });
     } catch (error) {
         console.error('Erro ao buscar equipamentos:', error);
         res.status(500).send('Erro ao buscar equipamentos.');
     }
 });
 
-router.get('/criar-equipamento/:departamentoId', function (req, res) {
+router.get('/criar/:departamentoId', async function (req, res) {
     const { departamentoId } = req.params;
 
-    res.render('CriarEquipamentoPage', { departamentoId });
+    try {
+        const colaboradoresSnapshot = await db.collection('colaboradores')
+            .where('departamentoId', '==', departamentoId)
+            .get();
+
+        const colaboradores = colaboradoresSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        res.render('CriarEquipamentoPage', { departamentoId, colaboradores });
+    } catch (error) {
+        console.error('Erro ao buscar colaboradores:', error);
+        res.status(500).send('Erro ao buscar colaboradores.');
+    }
 });
 
-router.post("/criar-equipamento/:departamentoId", async function (req, res) {
-   
+router.post("/criar/:departamentoId", async function (req, res) {
+    const { departamentoId } = req.params;
+    const { tipoEquipamento, processador, ram, hdSsd, marca, modelo, usuarioId, usuarioNome } = req.body;
+
+    try {
+        const equipamentoData = {
+            tipoEquipamento: tipoEquipamento,
+            modelo: modelo,
+            usuario: {
+                id: usuarioId,
+                nome: usuarioNome
+            },
+            departamentoId,
+        };
+
+        if (tipoEquipamento === 'Notebook') {
+            equipamentoData.processador = processador || 'undefined';
+            equipamentoData.ram = ram || 'undefined';
+            equipamentoData.hdSsd = hdSsd || 'undefined';
+            equipamentoData.marca = marca || 'undefined';
+            equipamentoData.modelo = modelo || 'undefined';
+        } else {
+            equipamentoData.marca = marca || 'undefined';
+            equipamentoData.modelo = modelo || 'undefined';
+        }
+
+        const docRef = await db.collection('equipamentos').add(equipamentoData);
+        res.redirect(`/equipamentos/${departamentoId}`);
+    } catch (error) {
+        console.error("Erro ao cadastrar equipamento:", error);
+        res.status(500).send({ message: "Erro ao cadastrar equipamento", error });
+    }
 });
+
+router.delete('/:equipamentoId', async function (req, res) {
+    const { equipamentoId } = req.params;
+
+    try {
+        await db.collection('equipamentos').doc(equipamentoId).delete();
+        res.status(204).send();
+    } catch (error) {
+        console.error('Erro ao deletar equipamento:', error);
+        res.status(500).send('Erro ao deletar equipamento.');
+    }
+});
+
 
 module.exports = router

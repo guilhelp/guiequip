@@ -18,6 +18,10 @@ router.get('/', async function (req, res) {
     }
 });
 
+router.get('/criar', function (req, res) {
+    res.render('CriarDepartamentoPage');
+});
+
 router.get('/:id', async function (req, res) {
     const departamentoId = req.params.id;
 
@@ -37,9 +41,7 @@ router.get('/:id', async function (req, res) {
     }
 });
 
-router.get('/criar-departamento', function (req, res) {
-    res.render('CriarDepartamentoPage');
-});
+
 
 router.post("/criar-departamento", async function (req, res) {
     const { nome, descricao } = req.body;

@@ -4,30 +4,36 @@ const { getFirestore } = require('firebase-admin/firestore');
 const db = getFirestore();
 
 // ->>>>>>>>>>>> COLABORADORES <<<<<<<<<<<<<<<-
-router.get('/:departamentoId', async function (req, res) {
-    const { departamentoId } = req.params;
 
-    try {
-        const colaboradoresSnapshot = await db.collection('colaboradores').where('departamentoId', '==', departamentoId).get();
-        const colaboradores = colaboradoresSnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-
-        res.render('ColaboradoresPage', { colaboradores, departamentoId });
-    } catch (error) {
-        console.error('Erro ao buscar equipamentos:', error);
-        res.status(500).send('Erro ao buscar equipamentos.');
-    }
-});
-
-router.get('/criar-colaborador/:departamentoId', function (req, res) {
+router.get('/criar/:departamentoId', async function (req, res) {
     const { departamentoId } = req.params;
 
     res.render('CriarColaboradorPage', { departamentoId });
 });
 
-router.post("/criar-colaborador/:departamentoId", async function (req, res) {
+router.get("/:departamentoId", async function (req, res) {
+    const { departamentoId } = req.params;
+
+    try {
+        const colaboradoresSnapshot = await db.collection('colaboradores')
+            .where('departamentoId', '==', departamentoId)
+            .get();
+
+        const colaboradores = colaboradoresSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        const colaboradoresEncontrados = colaboradores.length > 0;
+
+        res.render('ColaboradoresPage', { colaboradores, colaboradoresEncontrados, departamentoId });
+    } catch (error) {
+        console.error('Erro ao buscar colaboradores:', error);
+        res.status(500).send('Erro ao buscar colaboradores.');
+    }
+});
+
+router.post("/criar/:departamentoId", async function (req, res) {
     const { departamentoId } = req.params;
     const { nome, cargo } = req.body;
 
@@ -58,7 +64,7 @@ router.delete('/:id', async function (req, res) {
     }
 });
 
-router.get('/editar-colaborador/:id', async function (req, res) {
+router.get('/editar/:id', async function (req, res) {
     const { id } = req.params;
 
     try {

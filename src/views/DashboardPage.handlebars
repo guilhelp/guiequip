@@ -1,18 +1,22 @@
 <nav class="container mx-auto px-4 bg-white p-4 flex justify-between items-center">
     <div class="flex items-center space-x-4">
         <div class="text-white text-lg font-bold">
-            <img src="/logo.png" alt="Logo" class="h-24">
+            <a href="/departamentos">
+                <img src="/logo.png" alt="Logo" class="h-24">
+            </a>
         </div>
-        <button onclick="history.back()" class="text-black flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-            <span class="ml-2">Voltar</span>
-        </button>
+        <a href="/departamentos">
+            <button class="text-black flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                <span class="ml-2">Voltar</span>
+            </button>
+        </a>
     </div>
     <div class="hidden md:flex space-x-8">
-        <a href="/departamento/{{departamento.id}}" class="text-black active-link">Dashboard</a>
+        <a href="/departamentos/{{departamento.id}}" class="text-black active-link">Dashboard</a>
         <a href="/equipamentos/{{departamento.id}}" class="text-black">Equipamentos</a>
         <a href="/colaboradores/{{departamento.id}}" class="text-black ">Colaboradores</a>
         <a href="/logout">
@@ -36,7 +40,7 @@
 
 <div id="sidebar" class="sidebar hidden">
     <div class="p-4">
-        <a href="/departamento/{{departamento.id}}" class="block text-black mb-2 active-link">Dashboard</a>
+        <a href="/departamentos/{{departamento.id}}" class="block text-black mb-2 active-link">Dashboard</a>
         <a href="/equipamentos/{{departamento.id}}" class="block text-black mb-2 ">Equipamentos</a>
         <a href="/colaboradores/{{departamento.id}}" class="block text-black mb-2 ">Colaboradores</a>
         <a href="/logout">

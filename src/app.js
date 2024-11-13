@@ -1,7 +1,7 @@
 const { initializeApp, cert } = require('firebase-admin/app');
 const express = require('express');
 const app = express();
-const handlebars = require('express-handlebars').engine;
+const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 
 const serviceAccount = require('./serviceAccount.json');
@@ -10,9 +10,18 @@ initializeApp({
     credential: cert(serviceAccount),
 });
 
-app.engine('handlebars', handlebars({ defaultLayout: 'main' }));
+const hbs = handlebars.create({
+    defaultLayout: 'main',
+    helpers: {
+        eq: function (a, b) {
+            return a === b;
+        }
+    }
+});
+
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.set("views", __dirname + "/views")
+app.set("views", __dirname + "/views");
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
